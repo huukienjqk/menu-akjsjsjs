@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PRIME MENU 3.0 - Advanced</title>
+
+<style>
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    touch-action: pan-y;
+    overflow-x: hidden;
+}
+
+body{
+    min-height: 100vh;
+    background: #02040a;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* CYBER CONTAINER */
+.menu{
+    width: 100%;
+    max-width: 400px;
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+    background: radial-gradient(circle at 50% 0%, #0d2147 0%, #040817 75%);
+    border-left: 1px solid rgba(0, 210, 255, 0.2);
+    border-right: 1px solid rgba(0, 210, 255, 0.2);
+    box-shadow: 0 0 35px rgba(0, 150, 255, 0.15);
+    position: relative;
+}
+
+/* SCANLINE EFFECT */
+.menu::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* HEADER */
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 210, 255, 0.15);
+}
+
+.brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo{
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #00d2ff, #004080);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+    font-size: 22px;
+    border: 1px solid #56edff;
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+    100% { box-shadow: 0 0 22px rgba(0, 210, 255, 0.8); }
+}
+
+.title{
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #ffffff, #00d2ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.version{
+    color: #00d2ff;
+    font-size: 10px;
+    margin-top: 2px;
+    font-weight: bold;
+}
+
+.online{
+    color: #00ffa3;
+    font-size: 10px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 255, 163, 0.08);
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 255, 163, 0.3);
+}
+
+.online i{
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #00ffa3;
+    box-shadow: 0 0 8px #00ffa3;
+}
+
+.menu-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 14px 2px 8px;
+}
+
+.menu-title b{
+    font-size: 11px;
+    color: #00d2ff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.menu-title span{
+    color: #4c638e;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+/* FUNCTIONS GRID */
+.functions{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.function{
+    background: rgba(13, 23, 53, 0.7);
+    border: 1px solid rgba(0, 150, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 80px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.function:active {
+    transform: scale(0.96);
+}
+
+.function.active{
+    border-color: #00d2ff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 100, 200, 0.35), rgba(10, 25, 60, 0.85));
+}
+
+.function-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon{
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(0, 210, 255, 0.1);
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.function-name{
+    font-size: 12px;
+    font-weight: 800;
+    margin-top: 8px;
+    color: #e0f2fe;
+}
+
+.desc{
+    color: #5d75a3;
+    font-size: 8.5px;
+    margin-top: 2px;
+}
+
+.switch{
+    width: 34px;
+    height: 18px;
+    border-radius: 20px;
+    background: #182544;
+    border: 1px solid #283a66;
+    position: relative;
+    transition: 0.3s;
+}
+
+.switch:after{
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+    background: #516694;
+    transition: 0.3s;
+}
+
+.function.active .switch{
+    background: #00d2ff;
+    border-color: #56edff;
+    box-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+}
+
+.function.active .switch:after{
+    left: 18px;
+    background: #000;
+}
+
+select{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    background: #09132e;
+    color: #00d2ff;
+    outline: none;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+select option{ background: #070e24; color: #fff; }
+select optgroup{ color: #00ffa3; background: #04091a; }
+
+/* SENSITIVITY PANEL */
+.sens-box{
+    background: rgba(8, 16, 41, 0.8);
+    border: 1px solid rgba(0, 210, 255, 0.25);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.sens-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.sens-header-left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sens-icon{
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0055ff, #002266);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    border: 1px solid rgba(0, 210, 255, 0.4);
+}
+
+.sens-name{ font-size: 12px; font-weight: bold; }
+.sens-sub{ color: #00d2ff; font-size: 9px; margin-top: 1px; font-weight: bold; }
+
+.badge{
+    padding: 3px 8px;
+    border-radius: 5px;
+    background: rgba(0, 210, 255, 0.15);
+    border: 1px solid #00d2ff;
+    color: #00d2ff;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(13, 23, 53, 0.6);
+    border: 1px solid rgba(0, 180, 255, 0.15);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin-top: 6px;
+}
+
+.row-left{ display: flex; align-items: center; gap: 10px; }
+.row-icon{
+    width: 26px; height: 26px; border-radius: 6px; background: #102048;
+    display: flex; align-items: center; justify-content: center; font-size: 11px; color: #00d2ff;
+}
+.row-name{ font-size: 11px; font-weight: bold; }
+.row-desc{ color: #4c638e; font-size: 8px; }
+
+.value{
+    min-width: 52px; padding: 5px 8px; text-align: center; border-radius: 6px;
+    background: #062b54; border: 1px solid #00d2ff; color: #ffffff;
+    font-size: 13px; font-weight: 900;
+}
+
+/* ADVANCED CONFIG PANEL */
+.advanced-box {
+    background: rgba(8, 16, 41, 0.9);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.advanced-box.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.adv-title {
+    font-size: 11px;
+    color: #00d2ff;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.slider-row {
+    margin-bottom: 14px;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.slider-name {
+    font-size: 11px;
+    font-weight: bold;
+    color: #e0f2fe;
+}
+
+.slider-value {
+    font-size: 12px;
+    font-weight: 900;
+    color: #00d2ff;
+    background: rgba(0, 210, 255, 0.12);
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 210, 255, 0.3);
+}
+
+.slider-desc {
+    font-size: 8px;
+    color: #4c638e;
+    margin-bottom: 4px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 10px;
+    background: #182544;
+    outline: none;
+    border: 1px solid #283a66;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00d2ff, #0088cc);
+    border: 2px solid #56edff;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
+    cursor: pointer;
+}
+
+.formula-box {
+    background: rgba(0, 40, 80, 0.4);
+    border: 1px dashed rgba(0, 210, 255, 0.25);
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 8px;
+    font-size: 9px;
+    color: #7aa8d9;
+    line-height: 1.5;
+}
+
+.formula-box b {
+    color: #00d2ff;
+}
+
+.game{
+    width: 100%; height: 48px; margin-top: 8px; border: 1px solid #00d2ff;
+    border-radius: 10px; background: linear-gradient(90deg, #0052cc, #00a3cc);
+    color: white; font-size: 13px; font-weight: 900; cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.game:active {
+    transform: scale(0.97);
+}
+
+.footer{ text-align: center; color: #3b4d73; font-size: 9px; font-weight: bold; margin-top: 14px; }
+
+/* TOAST NOTIFICATION */
+#toast {
+    visibility: hidden;
+    min-width: 200px;
+    background-color: #00d2ff;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    position: fixed;
+    z-index: 100;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    box-shadow: 0 0 15px rgba(0,210,255,0.6);
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+}
+
+#toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu">
+
+    <div class="header">
+        <div class="brand">
+            <div class="logo">⚡</div>
+            <div>
+                <div class="title">PRIME MENU 3.0</div>
+                <div class="version">tiktok:hnam.tiktokvn • ADVANCED</div>
+            </div>
+        </div>
+        <div class="online"><i></i> ONLINE</div>
+    </div>
+
+    <div class="menu-title">
+        <b>CHỨC NĂNG HỖ TRỢ</b>
+        <span>4 OPTIONS</span>
+    </div>
+
+    <div class="functions">
+        <div class="function" id="btn-aimlock" onclick="toggleFunction(this, 'Aimlock')">
+            <div class="function-top">
+                <div class="icon">🎯</div>
+                <div class="switch"></div>
+            </div>
+            <div class="function-name">Aimlock</div>
+            <div class="desc">FindTarget + lockRadius</div>
+        </div>
+
+        <div class="function" id="btn-light" onclick="toggleFunction(this, 'Nhẹ Tâm')">
+            <div class="function-top">
+                <div class="icon">✨</div>
+                <div class="switch"></div>
+            </div>
+            <div class="function-name">Nhẹ Tâm</div>
+            <div class="desc">SmoothAim × 0.65</div>
+        </div>
+
+        <div class="function" id="btn-antishake" onclick="toggleFunction(this, 'Giảm Rung')">
+            <div class="function-top">
+                <div class="icon">〰️</div>
+                <div class="switch"></div>
+            </div>
+            <div class="function-name">Giảm Rung</div>
+            <div class="desc">ReduceRecoil</div>
+        </div>
+
+        <div class="function" id="btn-heavyscope" onclick="toggleFunction(this, 'Đầm Tâm')">
+            <div class="function-top">
+                <div class="icon">🔒</div>
+                <div class="switch"></div>
+            </div>
+            <div class="function-name">Đầm Tâm</div>
+            <div class="desc">SmoothAim × 0.75</div>
+        </div>
+    </div>
+
+    <!-- ADVANCED CONFIG (hiện khi có chức năng bật) -->
+    <div class="advanced-box" id="advancedPanel">
+        <div class="adv-title">⚙ ADVANCED AIM SETTINGS</div>
+
+        <!-- Aimlock settings -->
+        <div id="aimlockSettings" style="display:none;">
+            <div class="slider-row">
+                <div class="slider-header">
+                    <span class="slider-name">Lock Radius</span>
+                    <span class="slider-value" id="lockRadiusVal">150.0</span>
+                </div>
+                <div class="slider-desc">Góc tìm mục tiêu gần tâm nhất (FindTarget)</div>
+                <input type="range" id="lockRadius" min="50" max="300" step="5" value="150" oninput="updateSlider('lockRadius')">
+            </div>
+
+            <div class="slider-row">
+                <div class="slider-header">
+                    <span class="slider-name">Smooth</span>
+                    <span class="slider-value" id="smoothVal">0.15</span>
+                </div>
+                <div class="slider-desc">Tốc độ mượt khi lock (càng nhỏ càng mượt)</div>
+                <input type="range" id="smooth" min="0.01" max="1.0" step="0.01" value="0.15" oninput="updateSlider('smooth')">
+            </div>
+        </div>
+
+        <!-- Giảm Rung settings -->
+        <div id="antishakeSettings" style="display:none;">
+            <div class="slider-row">
+                <div class="slider-header">
+                    <span class="slider-name">Shake Reduction</span>
+                    <span class="slider-value" id="shakeReductionVal">0.65</span>
+                </div>
+                <div class="slider-desc">Hệ số giảm rung (ReduceRecoil)</div>
+                <input type="range" id="shakeReduction" min="0.1" max="0.95" step="0.05" value="0.65" oninput="updateSlider('shakeReduction')">
+            </div>
+            <div class="formula-box">
+                <b>Công thức:</b><br>
+                factor = 1.0 - shakeReduction<br>
+                newRecoil = currentRecoil × factor
+            </div>
+        </div>
+
+        <!-- Nhẹ Tâm + Đầm Tâm formula -->
+        <div id="smoothFormula" style="display:none;">
+            <div class="formula-box">
+                <b>SmoothAim Logic:</b><br>
+                speed = settings.smooth<br>
+                if (lightAim) speed *= <b>0.65</b><br>
+                if (stableAim) speed *= <b>0.75</b><br>
+                speed = clamp(speed, 0.01, 1.0)<br><br>
+                result = current + (target - current) × speed
+            </div>
+            <div class="row" style="margin-top:10px;">
+                <div class="row-left">
+                    <div class="row-icon">📐</div>
+                    <div>
+                        <div class="row-name">Effective Speed</div>
+                        <div class="row-desc">Tốc độ thực tế sau khi nhân hệ số</div>
+                    </div>
+                </div>
+                <div class="value" id="effectiveSpeed">0.15</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-title">
+        <b>ĐỘ NHẠY & NÚT BẮN</b>
+    </div>
+
+    <select id="device" onchange="changeDevice()">
+        <optgroup label="--- DÒNG ANDROID ---">
+            <option value="android_all">Android (Tất cả dòng máy)</option>
+            <option value="android_samsung">Samsung Galaxy</option>
+            <option value="android_xiaomi">Xiaomi / Redmi / Poco</option>
+            <option value="android_oppo">OPPO</option>
+            <option value="android_vivo">Vivo</option>
+            <option value="android_realme">Realme</option>
+            <option value="android_rog">ASUS ROG Phone</option>
+            <option value="android_redmagic">Nubia RedMagic</option>
+        </optgroup>
+        <optgroup label="--- DÒNG iOS ---">
+            <option value="iphoneXSM">iPhone XS Max</option>
+            <option value="iphone11">iPhone 11 Series</option>
+            <option value="iphone12">iPhone 12 Series</option>
+            <option value="iphone13">iPhone 13 Series</option>
+            <option value="iphone14">iPhone 14 Series</option>
+            <option value="iphone15">iPhone 15 Series</option>
+            <option value="iphone15PRM">iPhone 15 Pro Max</option>
+        </optgroup>
+    </select>
+
+    <div class="sens-box">
+        <div class="sens-header">
+            <div class="sens-header-left">
+                <div class="sens-icon">📱</div>
+                <div>
+                    <div class="sens-name">CẤU HÌNH THIẾT BỊ</div>
+                    <div class="sens-sub" id="deviceName">Android (Tất cả dòng máy)</div>
+                </div>
+            </div>
+            <div class="badge">V3.0</div>
+        </div>
+
+        <div class="row">
+            <div class="row-left">
+                <div class="row-icon">⚙</div>
+                <div>
+                    <div class="row-name">General</div>
+                    <div class="row-desc">Độ nhạy nhìn xung quanh</div>
+                </div>
+            </div>
+            <div class="value" id="general">190</div>
+        </div>
+
+        <div class="row">
+            <div class="row-left">
+                <div class="row-icon">🔴</div>
+                <div>
+                    <div class="row-name">Red Dot</div>
+                    <div class="row-desc">Độ nhạy tâm đỏ</div>
+                </div>
+            </div>
+            <div class="value" id="redDot">185</div>
+        </div>
+
+        <div class="row">
+            <div class="row-left">
+                <div class="row-icon">2×</div>
+                <div>
+                    <div class="row-name">2× Scope</div>
+                    <div class="row-desc">Độ nhạy ống ngắm 2x</div>
+                </div>
+            </div>
+            <div class="value" id="x2">180</div>
+        </div>
+
+        <div class="row">
+            <div class="row-left">
+                <div class="row-icon">4×</div>
+                <div>
+                    <div class="row-name">4× Scope</div>
+                    <div class="row-desc">Độ nhạy ống ngắm 4x</div>
+                </div>
+            </div>
+            <div class="value" id="x4">182</div>
+        </div>
+
+        <div class="row">
+            <div class="row-left">
+                <div class="row-icon">🎯</div>
+                <div>
+                    <div class="row-name">Nút Bắn</div>
+                    <div class="row-desc">Kích thước nút bắn chuẩn</div>
+                </div>
+            </div>
+            <div class="value" id="fireValue">45%</div>
+        </div>
+    </div>
+
+    <button class="game" onclick="startGame()">
+        ▶ &nbsp; ÁP DỤNG & VÀO GAME
+    </button>
+
+    <div class="footer">
+        PRIME MENU V3.0 ADVANCED • POWERED BY SYSTEM
+    </div>
+
+</div>
+
+<div id="toast">Thông báo</div>
+
+<script>
+// ===== AimSettings (khớp với C++ struct) =====
+const AimSettings = {
+    aimLock: false,
+    reduceShake: false,
+    lightAim: false,
+    stableAim: false,
+    lockRadius: 150.0,
+    smooth: 0.15,
+    shakeReduction: 0.65
+};
+
+// Web Audio API
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playClickSound() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.05);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+}
+
+function triggerVibration() {
+    if (navigator.vibrate) navigator.vibrate(15);
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.className = "show";
+    setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2000);
+}
+
+document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
+
+// ===== Toggle Functions =====
+function toggleFunction(element, name) {
+    playClickSound();
+    triggerVibration();
+    element.classList.toggle("active");
+    
+    const isAct = element.classList.contains("active");
+    showToast(`${name}: ${isAct ? 'BẬT' : 'TẮT'}`);
+    
+    // Cập nhật AimSettings
+    if (element.id === 'btn-aimlock') AimSettings.aimLock = isAct;
+    if (element.id === 'btn-antishake') AimSettings.reduceShake = isAct;
+    if (element.id === 'btn-light') AimSettings.lightAim = isAct;
+    if (element.id === 'btn-heavyscope') AimSettings.stableAim = isAct;
+
+    localStorage.setItem(element.id, isAct);
+    updateAdvancedPanel();
+    calcEffectiveSpeed();
+}
+
+// ===== Slider Update =====
+function updateSlider(id) {
+    const el = document.getElementById(id);
+    let val = parseFloat(el.value);
+    
+    if (id === 'lockRadius') {
+        AimSettings.lockRadius = val;
+        document.getElementById('lockRadiusVal').innerText = val.toFixed(1);
+    }
+    if (id === 'smooth') {
+        AimSettings.smooth = val;
+        document.getElementById('smoothVal').innerText = val.toFixed(2);
+        calcEffectiveSpeed();
+    }
+    if (id === 'shakeReduction') {
+        AimSettings.shakeReduction = val;
+        document.getElementById('shakeReductionVal').innerText = val.toFixed(2);
+    }
+    
+    // Lưu
+    localStorage.setItem('aim_' + id, val);
+}
+
+// ===== Tính Effective Speed (theo công thức SmoothAim) =====
+function calcEffectiveSpeed() {
+    let speed = AimSettings.smooth;
+    
+    if (AimSettings.lightAim) speed *= 0.65;
+    if (AimSettings.stableAim) speed *= 0.75;
+    
+    speed = Math.max(0.01, Math.min(1.0, speed));
+    
+    document.getElementById('effectiveSpeed').innerText = speed.toFixed(3);
+}
+
+// ===== Hiện/Ẩn Advanced Panel =====
+function updateAdvancedPanel() {
+    const panel = document.getElementById('advancedPanel');
+    const hasAny = AimSettings.aimLock || AimSettings.reduceShake || AimSettings.lightAim || AimSettings.stableAim;
+    
+    if (hasAny) {
+        panel.classList.add('show');
+    } else {
+        panel.classList.remove('show');
+    }
+    
+    // Hiện từng phần
+    document.getElementById('aimlockSettings').style.display = AimSettings.aimLock ? 'block' : 'none';
+    document.getElementById('antishakeSettings').style.display = AimSettings.reduceShake ? 'block' : 'none';
+    
+    const showSmooth = AimSettings.lightAim || AimSettings.stableAim || AimSettings.aimLock;
+    document.getElementById('smoothFormula').style.display = showSmooth ? 'block' : 'none';
+}
+
+// ===== Device Sensitivity =====
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function changeDevice() {
+    playClickSound();
+    triggerVibration();
+    const deviceSelect = document.getElementById("device");
+    const selectedDevice = deviceSelect.value;
+    
+    let gen, red, x2Val, x4Val, fireVal;
+
+    if (selectedDevice.startsWith("android")) {
+        gen = getRandomInt(180, 200);
+        red = getRandomInt(180, 200);
+        x2Val = getRandomInt(180, 200);
+        x4Val = getRandomInt(180, 200);
+        fireVal = getRandomInt(30, 60);
+    } else {
+        gen = getRandomInt(165, 200);
+        red = getRandomInt(165, 200);
+        x2Val = getRandomInt(165, 200);
+        x4Val = getRandomInt(165, 200);
+        fireVal = getRandomInt(30, 60);
+    }
+
+    document.getElementById("general").innerText = gen;
+    document.getElementById("redDot").innerText = red;
+    document.getElementById("x2").innerText = x2Val;
+    document.getElementById("x4").innerText = x4Val;
+    document.getElementById("fireValue").innerText = fireVal + "%";
+
+    const nameText = deviceSelect.options[deviceSelect.selectedIndex].text;
+    document.getElementById("deviceName").innerText = nameText;
+    
+    localStorage.setItem("selectedDevice", selectedDevice);
+}
+
+function startGame() {
+    playClickSound();
+    triggerVibration();
+    
+    // Log cấu hình hiện tại
+    console.log("=== PRIME AIM SETTINGS ===");
+    console.log(JSON.stringify(AimSettings, null, 2));
+    
+    showToast("Đã tối ưu hóa! Đang mở Game...");
+    
+    setTimeout(() => {
+        window.location.href = "freefiremax://";
+        setTimeout(function() {
+            window.location.href = "freefire://";
+        }, 500);
+    }, 600);
+}
+
+// ===== Load Saved State =====
+function loadSavedState() {
+    const funcs = ['btn-aimlock', 'btn-light', 'btn-antishake', 'btn-heavyscope'];
+    funcs.forEach(id => {
+        if (localStorage.getItem(id) === 'true') {
+            document.getElementById(id).classList.add('active');
+            
+            if (id === 'btn-aimlock') AimSettings.aimLock = true;
+            if (id === 'btn-antishake') AimSettings.reduceShake = true;
+            if (id === 'btn-light') AimSettings.lightAim = true;
+            if (id === 'btn-heavyscope') AimSettings.stableAim = true;
+        }
+    });
+
+    // Load slider values
+    const savedRadius = localStorage.getItem('aim_lockRadius');
+    if (savedRadius) {
+        document.getElementById('lockRadius').value = savedRadius;
+        AimSettings.lockRadius = parseFloat(savedRadius);
+        document.getElementById('lockRadiusVal').innerText = parseFloat(savedRadius).toFixed(1);
+    }
+    
+    const savedSmooth = localStorage.getItem('aim_smooth');
+    if (savedSmooth) {
+        document.getElementById('smooth').value = savedSmooth;
+        AimSettings.smooth = parseFloat(savedSmooth);
+        document.getElementById('smoothVal').innerText = parseFloat(savedSmooth).toFixed(2);
+    }
+    
+    const savedShake = localStorage.getItem('aim_shakeReduction');
+    if (savedShake) {
+        document.getElementById('shakeReduction').value = savedShake;
+        AimSettings.shakeReduction = parseFloat(savedShake);
+        document.getElementById('shakeReductionVal').innerText = parseFloat(savedShake).toFixed(2);
+    }
+
+    const savedDev = localStorage.getItem("selectedDevice");
+    if (savedDev) {
+        document.getElementById("device").value = savedDev;
+    }
+    
+    changeDevice();
+    updateAdvancedPanel();
+    calcEffectiveSpeed();
+}
+
+loadSavedState();
+</script>
+
+</body>
+</html>
